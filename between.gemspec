@@ -12,4 +12,6 @@ Gem::Specification.new do |gem|
   gem.name          = "between"
   gem.require_paths = ["lib"]
   gem.version       = "0.0.0"
+
+  gem.add_development_dependency "minitest"
 end
