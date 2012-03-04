@@ -1,4 +1,6 @@
-# Between [![Build Status](https://secure.travis-ci.org/jbarnette/between.png)](http://travis-ci.org/jbarnette/between)
+[![Build Status](https://secure.travis-ci.org/jbarnette/between.png)](http://travis-ci.org/jbarnette/between)
+
+# Between
 
 Move between rich domain models and simple data structures.
 
