@@ -4,6 +4,11 @@
 
 Move between rich domain models and simple data structures.
 
+## Compatibility
+
+Between is actively developed against MRI Ruby 1.9.3, but is widely
+tested against other Ruby versions and implementations.
+
 ## License (MIT)
 
 Copyright 2012 John Barnette (john@jbarnette.com)
