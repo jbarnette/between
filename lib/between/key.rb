@@ -26,7 +26,9 @@ module Between
       @exists
     end
 
-    def set
+    # Get this key's value from data and apply it to the context.
+
+    def parse
       @context.set @target, @value
 
       @value

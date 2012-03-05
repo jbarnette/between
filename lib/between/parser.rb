@@ -14,7 +14,7 @@ module Between
       key = Key.new name, context, data, options
       return unless key.exists?
 
-      key.set
+      key.parse
     end
   end
 end
