@@ -3,34 +3,28 @@ module Between
   # Internal.
 
   class Key
-    def initialize name, data, options = nil
+    def initialize name, options = nil
       name = name.to_s # 1.8
       name = name[0..-2] if name.end_with? "?"
 
-      @data    = data
       @default = options && options[:default]
-
-      # The actual source key. Cache whether or not the calculated key
-      # actually exists in the data.
-
-      @source  = (options && options[:from]) || name
-      @source  = @source.to_s unless @data.include? @source
-
+      @source  = options && options[:from] || name
       @target  = name.intern
-      @value   = (options && options[:value]) || @data[@source] || @default
-      @exists  = @value || @data.include?(@source) || @default
+      @value   = options && options[:value]
     end
 
-    def exists?
-      @exists
+    def exists? data
+      value(data) || data.include?(@source) ||
+        data.include?(@source.to_s) || @default
     end
 
-    # Get this key's value from data and apply it to the context.
+    def parse context, data
+      context.set @target, value(data)
+      value data
+    end
 
-    def parse context
-      context.set @target, @value
-
-      @value
+    def value data
+      @value || data[@source] || data[@source.to_s] || @default
     end
   end
 end
