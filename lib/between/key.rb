@@ -19,7 +19,7 @@ module Between
     end
 
     def parse context, data
-      context.set @target, value(data)
+      context.set @target, value(data) if exists?(data)
       value data
     end
 
