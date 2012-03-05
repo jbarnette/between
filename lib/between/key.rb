@@ -13,6 +13,7 @@ module Between
       @source  = (options && options[:from]) || name
       @target  = name.intern
       @value   = options && options[:value]
+      @value ||= @data[@source] || @data[@source.to_s] || @default
     end
 
     def exists?
@@ -21,13 +22,9 @@ module Between
     end
 
     def set
-      @context.set @target, value
+      @context.set @target, @value
 
-      value
-    end
-
-    def value
-      @value ||= @data[@source] || @data[@source.to_s] || @default
+      @value
     end
   end
 end
