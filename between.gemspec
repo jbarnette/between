@@ -14,4 +14,5 @@ Gem::Specification.new do |gem|
   gem.version       = "0.0.0"
 
   gem.add_development_dependency "minitest"
+  gem.add_development_dependency "mocha"
 end
