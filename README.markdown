@@ -4,6 +4,12 @@
 
 Move between rich domain models and simple data structures.
 
+## Dev
+
+This is in early extraction/dev. The current rule is to not even think
+about efficiency. Be as clear as possible, compose small objects, and
+don't even think about memoization, caching, etc until we can measure.
+
 ## Compatibility
 
 Between is actively developed against MRI Ruby 1.8.7 as a least common
