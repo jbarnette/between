@@ -5,7 +5,7 @@ module Between
   class Key
     def initialize name, context, data, options = nil
       name = name.to_s # 1.8
-      name = name[0..-2] if name[-1] == "?"
+      name = name[0..-2] if name.end_with? "?"
 
       @context = context
       @data    = data
