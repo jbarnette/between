@@ -11,10 +11,10 @@ module Between
     end
 
     def key name, options = nil
-      key = Key.new name, context, data, options
+      key = Key.new name, data, options
       return unless key.exists?
 
-      key.parse
+      key.parse context
     end
   end
 end

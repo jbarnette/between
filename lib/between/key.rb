@@ -3,11 +3,10 @@ module Between
   # Internal.
 
   class Key
-    def initialize name, context, data, options = nil
+    def initialize name, data, options = nil
       name = name.to_s # 1.8
       name = name[0..-2] if name.end_with? "?"
 
-      @context = context
       @data    = data
       @default = options && options[:default]
 
@@ -28,8 +27,8 @@ module Between
 
     # Get this key's value from data and apply it to the context.
 
-    def parse
-      @context.set @target, @value
+    def parse context
+      context.set @target, @value
 
       @value
     end
