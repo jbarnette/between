@@ -15,7 +15,7 @@ describe Between::Parser do
   end
 
   describe :key do
-    it "asks the context to set the extracted value" do
+    it "extracts a value and sets it on the context" do
       ctx = mock { expects(:set).with :foo, "bar" }
       p   = Between::Parser.new ctx, "foo" => "bar"
 
@@ -60,6 +60,13 @@ describe Between::Parser do
       p   = Between::Parser.new ctx, "foo" => "bar"
 
       assert_equal "bar", p.key(:foo)
+    end
+
+    it "takes a block to transform provided values" do
+      ctx = stub :set
+      p   = Between::Parser.new ctx, "foo" => "bar"
+
+      assert_equal "BAR", p.key(:foo) { |v| v.upcase  }
     end
   end
 end

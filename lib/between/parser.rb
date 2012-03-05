@@ -10,8 +10,8 @@ module Between
       @data    = data || {}
     end
 
-    def key name, options = nil
-      Key.new(name, options).parse context, data
+    def key name, options = nil, &block
+      Key.new(name, options).parse context, data, &block
     end
   end
 end

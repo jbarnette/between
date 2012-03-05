@@ -18,13 +18,20 @@ module Between
         data.include?(@source.to_s) || @default
     end
 
-    def parse context, data
-      context.set @target, value(data) if exists?(data)
-      value data
+    def parse context, data, &block
+      value = self.value data, &block
+      context.set @target, value if exists?(data)
+
+      value
     end
 
-    def value data
-      @value || data[@source] || data[@source.to_s] || @default
+    def value data, &block
+      return @value if @value
+
+      provided = data[@source] || data[@source.to_s]
+      provided = block[provided] if !provided.nil? && block
+
+      provided || @default
     end
   end
 end
