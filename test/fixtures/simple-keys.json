@@ -1,0 +1,8 @@
+{
+  "bool"   : true,
+  "fixnum" : 42,
+  "float"  : 3.14,
+  "ignore" : "This won't be used.",
+  "null"   : null,
+  "string" : "Hello, world!"
+}

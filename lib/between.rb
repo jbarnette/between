@@ -1,2 +1,1 @@
-module Between
-end
+require "between/parser"
