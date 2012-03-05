@@ -6,8 +6,11 @@ Move between rich domain models and simple data structures.
 
 ## Compatibility
 
-Between is actively developed against MRI Ruby 1.9.3, but is widely
-tested against other Ruby versions and implementations.
+Between is actively developed against MRI Ruby 1.8.7 as a least common
+denominator, but is widely tested against other Ruby versions and
+implementations. Check the [travis-ci][] page for details.
+
+[travis-ci]: http://travis-ci.org/jbarnette/between
 
 ## License (MIT)
 
