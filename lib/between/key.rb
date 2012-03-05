@@ -9,20 +9,25 @@ module Between
 
       @context = context
       @data    = data
+      @default = options && options[:default]
       @source  = (options && options[:from]) || name
       @target  = name.intern
-    end
-
-    def get
-      @data[@source] || @data[@source.to_s]
+      @value   = options && options[:value]
     end
 
     def exists?
-      @data.include?(@source) || @data.include?(@source.to_s)
+      !!(@value || @data.include?(@source) ||
+         @data.include?(@source.to_s) || @default)
     end
 
     def set
-      @context.set @target, get
+      @context.set @target, value
+
+      value
+    end
+
+    def value
+      @value ||= @data[@source] || @data[@source.to_s] || @default
     end
   end
 end

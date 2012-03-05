@@ -40,5 +40,26 @@ describe Between::Parser do
 
       p.key :foo, :from => :baz
     end
+
+    it "can specify an explicit override value" do
+      ctx = mock { expects(:set).with :foo, "bar" }
+      p   = Between::Parser.new ctx, "foo" => "baz"
+
+      p.key :foo, :value => "bar"
+    end
+
+    it "can specify a default value" do
+      ctx = mock { expects(:set).with :foo, "bar" }
+      p   = Between::Parser.new ctx
+
+      p.key :foo, :default => "bar"
+    end
+
+    it "returns the value set on the context" do
+      ctx = stub :set
+      p   = Between::Parser.new ctx, "foo" => "bar"
+
+      assert_equal "bar", p.key(:foo)
+    end
   end
 end
