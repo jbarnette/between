@@ -14,6 +14,7 @@ describe Between do
       expects(:set).with :fixnum, 42
       expects(:set).with :float,  3.14
       expects(:set).with :null,   nil
+      expects(:set).with :fk_id,  24
       expects(:set).with :string, "Hello, world!"
     end
 
@@ -21,6 +22,7 @@ describe Between do
 
     p.key :bool
     p.key :fixnum
+    p.id  :fk
     p.key :float
     p.key :string
     p.key :null

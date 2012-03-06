@@ -1,6 +1,7 @@
 {
   "bool"   : true,
   "fixnum" : 42,
+  "fk"     : 24,
   "float"  : 3.14,
   "ignore" : "This won't be used.",
   "null"   : null,

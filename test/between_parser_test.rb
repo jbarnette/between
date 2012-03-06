@@ -14,12 +14,28 @@ describe Between::Parser do
     assert_equal Hash.new, p.data
   end
 
+  describe :id do
+    it "extracts name and sets it as name_id on the context" do
+      ctx = mock { expects(:set).with :foo_id, 42 }
+      p   = Between::Parser.new ctx, "foo" => 42
+
+      assert_equal 42, p.id(:foo)
+    end
+
+    it "passes through names ending in _id unchanged" do
+      ctx = mock { expects(:set).with :foo_id, 42 }
+      p   = Between::Parser.new ctx, "foo_id" => 42
+
+      assert_equal 42, p.id(:foo_id)
+    end
+  end
+
   describe :key do
     it "extracts a value and sets it on the context" do
       ctx = mock { expects(:set).with :foo, "bar" }
       p   = Between::Parser.new ctx, "foo" => "bar"
 
-      p.key :foo
+      assert_equal "bar", p.key(:foo)
     end
 
     it "won't set if the key doesn't exist in data" do
@@ -31,28 +47,28 @@ describe Between::Parser do
       ctx = mock { expects(:set).with :foo, true }
       p   = Between::Parser.new ctx, "foo" => true
 
-      p.key :foo?
+      assert p.key :foo?
     end
 
     it "can specify a completely different source name" do
       ctx = mock { expects(:set).with :foo, "bar" }
       p   = Between::Parser.new ctx, "baz" => "bar"
 
-      p.key :foo, :from => :baz
+      assert_equal "bar", p.key(:foo, :from => :baz)
     end
 
     it "can specify an explicit override value" do
       ctx = mock { expects(:set).with :foo, "bar" }
       p   = Between::Parser.new ctx, "foo" => "baz"
 
-      p.key :foo, :value => "bar"
+      assert_equal "bar", p.key(:foo, :value => "bar")
     end
 
     it "can specify a default value" do
       ctx = mock { expects(:set).with :foo, "bar" }
       p   = Between::Parser.new ctx
 
-      p.key :foo, :default => "bar"
+      assert_equal "bar", p.key(:foo, :default => "bar")
     end
 
     it "returns the value set on the context" do

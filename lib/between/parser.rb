@@ -1,3 +1,4 @@
+require "between/id"
 require "between/key"
 
 module Between
@@ -8,6 +9,10 @@ module Between
     def initialize context, data = nil
       @context = context
       @data    = data || {}
+    end
+
+    def id name, options = nil
+      ID.new(name, options).parse context, data
     end
 
     def key name, options = nil, &block
