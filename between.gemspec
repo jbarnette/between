@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = "0.0.0"
 
+  gem.add_development_dependency "json_pure"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "mocha"
-  gem.add_development_dependency "yajl-ruby"
 end

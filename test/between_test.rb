@@ -1,13 +1,13 @@
 require "between/test"
 require "between"
-require "yajl"
+require "json"
 
 # The tests in this file are intended to be lumpy, ungainly things
 # extracted from Real Life. Integrationish, I guess.
 
 describe Between do
   it "can deal with simple keys" do
-    json = Yajl::Parser.parse File.read "test/fixtures/simple-keys.json"
+    json = JSON.parse File.read "test/fixtures/simple-keys.json"
 
     ctx = mock do
       expects(:set).with :bool,   true
