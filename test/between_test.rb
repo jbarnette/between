@@ -6,7 +6,7 @@ require "json"
 # extracted from Real Life. Integrationish, I guess.
 
 describe Between do
-  it "can deal with simple keys" do
+  it "can deal with simple attrs" do
     json = JSON.parse File.read "test/fixtures/simple-keys.json"
 
     ctx = mock do
@@ -20,11 +20,11 @@ describe Between do
 
     p = Between::Parser.new ctx, json
 
-    p.key :bool
-    p.key :fixnum
-    p.id  :fk
-    p.key :float
-    p.key :string
-    p.key :null
+    p.attr :bool
+    p.attr :fixnum
+    p.id   :fk
+    p.attr :float
+    p.attr :string
+    p.attr :null
   end
 end

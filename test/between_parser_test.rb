@@ -30,59 +30,59 @@ describe Between::Parser do
     end
   end
 
-  describe :key do
+  describe :attr do
     it "extracts a value and sets it on the model" do
       m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "foo" => "bar"
 
-      assert_equal "bar", p.key(:foo)
+      assert_equal "bar", p.attr(:foo)
     end
 
-    it "won't set if the key doesn't exist in data" do
+    it "won't set if the attr doesn't exist in data" do
       p = Between::Parser.new mock
-      p.key :foo
+      p.attr :foo
     end
 
     it "removes trailing ? from predicates" do
       m = mock { expects(:foo=).with true }
       p = Between::Parser.new m, "foo" => true
 
-      assert p.key :foo?
+      assert p.attr :foo?
     end
 
     it "can specify a completely different source name" do
       m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "baz" => "bar"
 
-      assert_equal "bar", p.key(:foo, :from => :baz)
+      assert_equal "bar", p.attr(:foo, :from => :baz)
     end
 
     it "can specify an explicit override value" do
       m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "foo" => "baz"
 
-      assert_equal "bar", p.key(:foo, :value => "bar")
+      assert_equal "bar", p.attr(:foo, :value => "bar")
     end
 
     it "can specify a default value" do
       m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m
 
-      assert_equal "bar", p.key(:foo, :default => "bar")
+      assert_equal "bar", p.attr(:foo, :default => "bar")
     end
 
     it "returns the value set on the model" do
       m = stub :foo=
       p = Between::Parser.new m, "foo" => "bar"
 
-      assert_equal "bar", p.key(:foo)
+      assert_equal "bar", p.attr(:foo)
     end
 
     it "takes a block to transform provided values" do
       m = stub :foo=
       p = Between::Parser.new m, "foo" => "bar"
 
-      assert_equal "BAR", p.key(:foo) { |v| v.upcase }
+      assert_equal "BAR", p.attr(:foo) { |v| v.upcase }
     end
   end
 end

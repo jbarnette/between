@@ -2,7 +2,7 @@ module Between
 
   # Internal.
 
-  class Key
+  class Attr
     def initialize name, options = nil
       @default = options && options[:default]
       @name    = name.to_s
@@ -21,9 +21,6 @@ module Between
     def parse model, data, &block
       set model, value(data, &block) if parseable? data
     end
-
-    # Internal: Set this key's `value` on `model` by calling a
-    # `target=` method.
 
     def set model, value
       model.send "#{target}=", value

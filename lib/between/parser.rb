@@ -1,5 +1,5 @@
 require "between/id"
-require "between/key"
+require "between/attr"
 
 module Between
   class Parser
@@ -11,12 +11,12 @@ module Between
       @model = model
     end
 
-    def id name, options = nil
-      ID.new(name, options).parse model, data
+    def attr name, options = nil, &block
+      Attr.new(name, options).parse model, data, &block
     end
 
-    def key name, options = nil, &block
-      Key.new(name, options).parse model, data, &block
+    def id name, options = nil
+      ID.new(name, options).parse model, data
     end
   end
 end

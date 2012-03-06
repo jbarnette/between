@@ -1,7 +1,7 @@
-require "between/key"
+require "between/attr"
 
 module Between
-  class ID < Key
+  class ID < Attr
     def target
       (name.end_with?("_id") ? name : "#{name}_id").intern
     end
