@@ -23,6 +23,6 @@ describe Between do
     p.key :fixnum
     p.key :float
     p.key :string
-    p.key :nil
+    p.key :null
   end
 end
