@@ -16,14 +16,14 @@ describe Between::Parser do
 
   describe :id do
     it "extracts name and sets it as name_id on the model" do
-      m = mock { expects(:set).with :foo_id, 42 }
+      m = mock { expects(:foo_id=).with 42 }
       p = Between::Parser.new m, "foo" => 42
 
       assert_equal 42, p.id(:foo)
     end
 
     it "passes through names ending in _id unchanged" do
-      m = mock { expects(:set).with :foo_id, 42 }
+      m = mock { expects(:foo_id=).with 42 }
       p = Between::Parser.new m, "foo_id" => 42
 
       assert_equal 42, p.id(:foo_id)
@@ -32,7 +32,7 @@ describe Between::Parser do
 
   describe :key do
     it "extracts a value and sets it on the model" do
-      m = mock { expects(:set).with :foo, "bar" }
+      m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "foo" => "bar"
 
       assert_equal "bar", p.key(:foo)
@@ -44,42 +44,42 @@ describe Between::Parser do
     end
 
     it "removes trailing ? from predicates" do
-      m = mock { expects(:set).with :foo, true }
+      m = mock { expects(:foo=).with true }
       p = Between::Parser.new m, "foo" => true
 
       assert p.key :foo?
     end
 
     it "can specify a completely different source name" do
-      m = mock { expects(:set).with :foo, "bar" }
+      m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "baz" => "bar"
 
       assert_equal "bar", p.key(:foo, :from => :baz)
     end
 
     it "can specify an explicit override value" do
-      m = mock { expects(:set).with :foo, "bar" }
+      m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m, "foo" => "baz"
 
       assert_equal "bar", p.key(:foo, :value => "bar")
     end
 
     it "can specify a default value" do
-      m = mock { expects(:set).with :foo, "bar" }
+      m = mock { expects(:foo=).with "bar" }
       p = Between::Parser.new m
 
       assert_equal "bar", p.key(:foo, :default => "bar")
     end
 
     it "returns the value set on the model" do
-      m = stub :set
+      m = stub :foo=
       p = Between::Parser.new m, "foo" => "bar"
 
       assert_equal "bar", p.key(:foo)
     end
 
     it "takes a block to transform provided values" do
-      m = stub :set
+      m = stub :foo=
       p = Between::Parser.new m, "foo" => "bar"
 
       assert_equal "BAR", p.key(:foo) { |v| v.upcase }

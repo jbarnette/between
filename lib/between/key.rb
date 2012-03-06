@@ -19,8 +19,14 @@ module Between
     end
 
     def parse model, data, &block
-      value = self.value data, &block
-      model.set target, value if parseable?(data)
+      set model, value(data, &block) if parseable? data
+    end
+
+    # Internal: Set this key's `value` on `model` by calling a
+    # `target=` method.
+
+    def set model, value
+      model.send "#{target}=", value
 
       value
     end

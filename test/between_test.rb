@@ -10,12 +10,12 @@ describe Between do
     json = JSON.parse File.read "test/fixtures/simple-keys.json"
 
     ctx = mock do
-      expects(:set).with :bool,   true
-      expects(:set).with :fixnum, 42
-      expects(:set).with :float,  3.14
-      expects(:set).with :null,   nil
-      expects(:set).with :fk_id,  24
-      expects(:set).with :string, "Hello, world!"
+      expects(:bool=).with   true
+      expects(:fixnum=).with 42
+      expects(:float=).with  3.14
+      expects(:null=).with   nil
+      expects(:fk_id=).with  24
+      expects(:string=).with "Hello, world!"
     end
 
     p = Between::Parser.new ctx, json
