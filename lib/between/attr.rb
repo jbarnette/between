@@ -4,13 +4,22 @@ module Between
 
   class Attr
     def initialize name, options = nil
-      @default = options && options[:default]
-      @name    = name.to_s
-      @source  = options && options[:from] && options[:from].to_s
-      @value   = options && options[:value]
+      @default  = options && options[:default]
+      @name     = name.to_s
+      @presence = options && FalseClass === options[:blank]
+      @source   = options && options[:from] && options[:from].to_s
+      @value    = options && options[:value]
     end
 
     def parseable? data
+      value = self.value data
+
+      return false if @presence &&
+        (value.nil? ||
+         (value.respond_to?(:empty?) && value.empty?) ||
+         ((String === value) && /\A\s+\Z/ =~ value) ||
+         (value.respond_to?(:blank?) && value.blank?))
+
       value(data) || data.include?(source) || @default
     end
 

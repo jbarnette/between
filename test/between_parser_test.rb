@@ -84,5 +84,25 @@ describe Between::Parser do
 
       assert_equal "BAR", p.attr(:foo) { |v| v.upcase }
     end
+
+    it "can ignore nil, empty, and blank attrs" do
+      m = mock
+
+      data = {
+        "blankString" => "  \t",
+        "emptyArray"  => [],
+        "emptyHash"   => {},
+        "emptyString" => "",
+        "nil"         => nil,
+      }
+
+      p = Between::Parser.new m, data
+
+      p.attr :blankString, :blank => false
+      p.attr :emptyArray,  :blank => false
+      p.attr :emptyHash,   :blank => false
+      p.attr :emptyString, :blank => false
+      p.attr :nil,         :blank => false
+    end
   end
 end
