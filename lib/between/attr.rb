@@ -11,15 +11,21 @@ module Between
       @value    = options && options[:value]
     end
 
-    def parseable? data
-      value = self.value data
+    # A value is blank if this attr requires presence, it's nil,
+    # responds to "empty?" with a true value, is a String that matches
+    # an anchored whitespace-only regex, or responds to "blank?" with
+    # a true value. This is ugly. Alternatives are most welcome.
 
-      return false if @presence &&
+    def blank? value
+      @presence &&
         (value.nil? ||
          (value.respond_to?(:empty?) && value.empty?) ||
          ((String === value) && /\A\s+\Z/ =~ value) ||
          (value.respond_to?(:blank?) && value.blank?))
+    end
 
+    def parseable? data
+      return false if blank? value(data)
       value(data) || data.include?(source) || @default
     end
 
