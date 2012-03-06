@@ -10,7 +10,7 @@ module Between
       @value   = options && options[:value]
     end
 
-    def exists? data
+    def parseable? data
       value(data) || data.include?(source) || @default
     end
 
@@ -18,9 +18,9 @@ module Between
       @name.end_with?("?") ? @name[0..-2] : @name
     end
 
-    def parse context, data, &block
+    def parse model, data, &block
       value = self.value data, &block
-      context.set target, value if exists?(data)
+      model.set target, value if parseable?(data)
 
       value
     end
