@@ -40,13 +40,19 @@ module Between
     # Internal: Create a parser for data.
 
     def parser data
-      Between::Parser.new model, data
+      Between::Parser.new self, data
     end
 
     # Internal: Parse data with parser. Subclasses must implement.
 
     def parse! parser
       raise NotImplementedError, "Implement #{self.class.name}#parse!"
+    end
+
+    # Internal: Set a value on this broker's model.
+
+    def set name, value
+      model.send "#{name}=", value
     end
   end
 end

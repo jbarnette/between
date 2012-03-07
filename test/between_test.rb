@@ -9,22 +9,26 @@ describe Between do
   it "can deal with simple attrs" do
     json = JSON.parse File.read "test/fixtures/simple-keys.json"
 
-    ctx = mock "broker" do
-      expects(:set).with :bool,   true
-      expects(:set).with :fixnum, 42
-      expects(:set).with :float,  3.14
-      expects(:set).with :null,   nil
-      expects(:set).with :fk_id,  24
-      expects(:set).with :string, "Hello, world!"
+    model = mock "model" do
+      expects(:bool=).with   true
+      expects(:fixnum=).with 42
+      expects(:float=).with  3.14
+      expects(:null=).with   nil
+      expects(:fk_id=).with  24
+      expects(:string=).with "Hello, world!"
     end
 
-    p = Between::Parser.new ctx, json
+    broker = Between::Broker.new model
 
-    p.attr :bool
-    p.attr :fixnum
-    p.id   :fk
-    p.attr :float
-    p.attr :string
-    p.attr :null
+    def broker.parse! p
+      p.attr :bool
+      p.attr :fixnum
+      p.id   :fk
+      p.attr :float
+      p.attr :string
+      p.attr :null
+    end
+
+    broker.parse json
   end
 end
