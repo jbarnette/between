@@ -33,14 +33,13 @@ module Between
       @name.end_with?("?") ? @name[0..-2] : @name
     end
 
-    def parse model, data, &block
-      set model, value(data, &block) if parseable? data
-    end
+    def parse broker, data, &block
+      value = self.value data, &block
 
-    def set model, value
-      model.send "#{target}=", value
-
-      value
+      if parseable? data
+        broker.set target, value
+        value
+      end
     end
 
     def source
